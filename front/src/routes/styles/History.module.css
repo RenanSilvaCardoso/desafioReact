@@ -1,0 +1,37 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: 0;
+    outline: 0;
+}
+
+main{
+    margin-top: 90px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.container-table, .container-details{
+    width: 50%;
+}
+
+.wrapper-table, .details-table{
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+table td{
+    width: calc(100%/3);
+}
