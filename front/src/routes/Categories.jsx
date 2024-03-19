@@ -1,6 +1,7 @@
 import TableCategories from '../components/tableCategories';
 import styles from './styles/Categories.module.css'
 import {useState, useEffect} from 'react';
+import Btn from '../components/Btn';
 
 export default function Categories(){
     const regexText = /^[A-Za-z0-9_]+$/g;
@@ -8,14 +9,11 @@ export default function Categories(){
     const [category, setCategory] = useState('');
     const [tax, setTax] = useState('');
     const [registeredCategories, setRegisteredCategories] = useState([]);
-    
     async function getRegisteredCategories(){
         const res = await fetch('http://localhost/api/categories.php');
         const json  = await res.json();
         setRegisteredCategories(json);
     }
-    
-    
     useEffect(() => {
         getRegisteredCategories();
     }, []);
@@ -68,7 +66,7 @@ export default function Categories(){
                         </div>
 
                         <div className={`${styles['form-submit']}`}>
-                            <input type="submit" value="Add Category" />
+                            <Btn valor='Add Category' classe='submit-product' />
                         </div>
                     </form>
                 </div>

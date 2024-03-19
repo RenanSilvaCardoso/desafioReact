@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import styles from './styles/Products.module.css'
 import { TableProducts } from '../components/TableProducts';
+import Btn from '../components/Btn'
 
 export default function Products(){
     const regexText = /^[A-Za-z0-9_]+$/g;
@@ -91,7 +92,7 @@ export default function Products(){
                             </select>
                         </div>
                         <div className={`${styles['form-submit']}`}>
-                            <input type="submit" value="Add Product" />
+                            <Btn valor='Add Product' classe='submit-product' />
                         </div>
                     </form>
                 </div>
