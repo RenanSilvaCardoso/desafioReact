@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import styles from './styles/Home.module.css'
-// import Button from '../components/button';
 import TableHome from '../components/TableHome';
+import Btn from '../components/Btn';
 
 
 export default function Home(){
@@ -151,7 +151,7 @@ export default function Home(){
                             <input type="text" value={priceInput} disabled/>
                         </div>
                         <div className={`${styles['form-submit']}`}>
-                            <input type="submit" value="Add Product" />
+                            <Btn valor='Add Product' classe='submit-product' />
                         </div>
                     </form>
                 </div>
@@ -171,12 +171,11 @@ export default function Home(){
                             </div>
                         </div>
                         <div className={`${styles['table-submits']}`}>
-                            <input className={`${styles['submit-cancel']}`} type="submit" value='Cancel' onClick={handleCancel} />
-                            <input className={`${styles['submit-finish']}`} type="submit" value='Finish' onClick={handleFinish} />
+                            <Btn valor='Cancel' classe='submit-cancel' onClick={handleCancel} />
+                            <Btn valor='Finish' classe='submit-finish' onClick={handleFinish} />
                         </div>
                     </form>
                 </div>
-                {/* <Button /> */}
             </div>
         </main>
     )
