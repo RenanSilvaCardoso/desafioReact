@@ -87,18 +87,3 @@ main h1{
 .form-inputs input[type=text]{
     width: calc(25% - 4px);
 }
-
-.table table{
-    width: 80%;
-    background-color: #fff;
-    border: 1px solid #b8b8b8;
-    border-radius: 5px;
-    padding: 1rem;
-    margin: 0 auto;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
-}
-
-.table table td{ 
-    width: calc(100%/5);
-}

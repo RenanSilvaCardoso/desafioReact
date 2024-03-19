@@ -1,10 +1,10 @@
+import TableCategories from '../components/tableCategories';
 import styles from './styles/Categories.module.css'
 import {useState, useEffect} from 'react';
 
 export default function Categories(){
     const regexText = /^[A-Za-z0-9_]+$/g;
     const [toggle, setToggle] = useState(true);
-    const [data, setData] = useState([]);
     const [category, setCategory] = useState('');
     const [tax, setTax] = useState('');
     const [registeredCategories, setRegisteredCategories] = useState([]);
@@ -15,17 +15,11 @@ export default function Categories(){
         setRegisteredCategories(json);
     }
     
-    async function getCategories(){
-        const res = await fetch('http://localhost/api/selectCategories.php');
-        const json = await res.json();
-        setData(json);
-    }
+    
     useEffect(() => {
-        getCategories();
         getRegisteredCategories();
     }, []);
     useEffect(() => {
-        getCategories();
         getRegisteredCategories();
     }, [toggle]);
 
@@ -80,24 +74,7 @@ export default function Categories(){
                 </div>
                 <div className={`${styles['container-table']}`}>
                     <div className={`${styles['table']}`}>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Category</th>
-                                    <th>Tax</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data.map((category) => (
-                                    <tr key={category.code}>
-                                        <td>{category.code}</td>
-                                        <td>{category.category_name}</td>
-                                        <td>{category.tax}%</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        <TableCategories url='http://localhost/api/selectCategories.php' />
                     </div>
                 </div>
             </div>

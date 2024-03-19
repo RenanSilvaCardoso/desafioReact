@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import styles from './styles/Products.module.css'
+import { TableProducts } from '../components/TableProducts';
 
 export default function Products(){
     const regexText = /^[A-Za-z0-9_]+$/g;
@@ -9,7 +10,7 @@ export default function Products(){
     const [amount, setAmount] = useState('');
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
-    const [data, setData] = useState([]);
+    
     const [registeredProducts, setRegisteredProducts] = useState([]);
 
     async function getRegisteredProducts(){
@@ -24,18 +25,11 @@ export default function Products(){
         setCategories(json);
     }
 
-    async function getProducts(){
-        const res = await fetch('http://localhost/api/selectProducts.php');
-        const json = await res.json();
-        setData(json);
-    }
     useEffect(() => {
         getCategories();
-        getProducts();
         getRegisteredProducts();
     }, []);
     useEffect(() => {
-        getProducts();
         getCategories();
         getRegisteredProducts();
     }, [toggle]);
@@ -103,28 +97,7 @@ export default function Products(){
                 </div>
                 <div className={`${styles['container-table']}`}>
                     <div className={`${styles['table']}`}>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Product</th>
-                                    <th>Amount</th>
-                                    <th>Price</th>
-                                    <th>Category</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data.map((product) => (
-                                    <tr key={product.code}>
-                                        <td>{product.code}</td>
-                                        <td>{product.product_name}</td>
-                                        <td>{product.amount}</td>
-                                        <td>{product.price}</td>
-                                        <td>{product.category_name}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        <TableProducts url='http://localhost/api/selectProducts.php' />
                     </div>
                 </div>
             </div>

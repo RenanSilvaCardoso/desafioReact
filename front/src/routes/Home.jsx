@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import styles from './styles/Home.module.css'
+// import Button from '../components/button';
+import TableHome from '../components/TableHome';
+
 
 export default function Home(){
     const [data, setData] = useState([]);
@@ -12,6 +15,11 @@ export default function Home(){
     const [details, setDetails] = useState([]);
     const [products, setProducts] = useState([]);
 
+    async function getCart(){
+        const res = await fetch(`http://localhost/api/deleteItem.php`);
+        const json = await res.json();
+        setCart(json);
+    }
     async function getProductsBD(){
         const res = await fetch('http://localhost/api/getProductsBD.php');
         const json = await res.json();
@@ -52,8 +60,8 @@ export default function Home(){
     
     useEffect(()=> {
         getPriceAndTax();
-        getCart();
         getDetails();
+        getCart();
     },[product]);
     
     useEffect(()=> {
@@ -94,24 +102,7 @@ export default function Home(){
         }
         location.reload();
     }
-
-    async function getCart(){
-        const res = await fetch('http://localhost/api/getCart.php');
-        const json = await res.json();
-        setCart(json);
-    }
-
-    function handleDelete(e){
-        e.preventDefault();
-        let productName = e.target.id;
-        console.log(productName);
-        fetch('http://localhost/api/deleteItem.php', {
-            method: "POST",
-            body: JSON.stringify(productName),
-            headers: {"Content-Type": "application/json; charset=UTF-8"}
-        })
-        location.reload();
-    }
+    
 
     function handleCancel(e){
         e.preventDefault();
@@ -141,7 +132,7 @@ export default function Home(){
             <h1>Shopping Cart</h1>
             <div className={`${styles['container']}`}>
                 <div className={`${styles['container-form']}`}>
-                    <form onSubmit={submitProduct}>
+                <form onSubmit={submitProduct}>
                         <div className={`${styles['form-select']}`}>
                             <select defaultValue={'DEFAULT'} onChange={e => setProduct(e.target.value)}>
 
@@ -167,27 +158,7 @@ export default function Home(){
                 <div className={`${styles['container-table']}`}>
                     <form action="">
                         <div className={`${styles['table']}`}>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Amount</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {cart.map((item) => (
-                                        <tr key={item.code}>
-                                            <td>{item.product_name}</td>
-                                            <td>{item.price}</td>
-                                            <td>{item.amount}</td>
-                                            <td>{item.total}</td>
-                                            <td><button id={item.product_name}onClick={handleDelete}>Delete</button></td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                            <TableHome url='http://localhost/api/getCart.php' />
                         </div>
                         <div className={`${styles['table-details']}`}>
                             <div className={`${styles['table-inputs']}`}>
@@ -205,6 +176,7 @@ export default function Home(){
                         </div>
                     </form>
                 </div>
+                {/* <Button /> */}
             </div>
         </main>
     )
