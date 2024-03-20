@@ -3,9 +3,7 @@ import styles from './styles/Home.module.css'
 import TableHome from '../components/TableHome';
 import Btn from '../components/Btn';
 
-
 export default function Home(){
-    const [data, setData] = useState([]);
     const [taxInput, setTaxInput] = useState('Tax');
     const [priceInput, setPriceInput] = useState('Price');
     const [product, setProduct] = useState('Price');
@@ -14,9 +12,15 @@ export default function Home(){
     const [cart, setCart] = useState([]);
     const [details, setDetails] = useState([]);
     const [products, setProducts] = useState([]);
-
+    const [data, setData] = useState([]);
+    
+    async function getProducts(){
+        const res = await fetch(`http://localhost/api/selectProductsHome.php`);
+        const json = await res.json();
+        setData(json);
+    }
     async function getCart(){
-        const res = await fetch(`http://localhost/api/deleteItem.php`);
+        const res = await fetch(`http://localhost/api/getCart.php`);
         const json = await res.json();
         setCart(json);
     }
@@ -31,12 +35,6 @@ export default function Home(){
         const json = await res.json();
         setDetails(json);
     } 
-    
-    async function getProducts(){
-        const res = await fetch('http://localhost/api/selectProductsHome.php');
-        const json = await res.json();
-        setData(json);
-    }
 
     async function getPriceAndTax(){
         const res = await fetch('http://localhost/api/getPriceAndTax.php');
@@ -51,11 +49,11 @@ export default function Home(){
     }
         
     useEffect(() => {
-        getProducts();
         getPriceAndTax();
         getCart();
         getDetails();
         getProductsBD();
+        getProducts();
     }, []);
     
     useEffect(()=> {
@@ -102,7 +100,6 @@ export default function Home(){
         }
         location.reload();
     }
-    
 
     function handleCancel(e){
         e.preventDefault();
@@ -120,6 +117,7 @@ export default function Home(){
 
     function handleFinish(e){
         e.preventDefault();
+        console.log('oi');
         postOrders();
         postOrderItem();
         fetch('http://localhost/api/putProducts.php');
@@ -171,8 +169,8 @@ export default function Home(){
                             </div>
                         </div>
                         <div className={`${styles['table-submits']}`}>
-                            <Btn valor='Cancel' classe='submit-cancel' onClick={handleCancel} />
-                            <Btn valor='Finish' classe='submit-finish' onClick={handleFinish} />
+                            <Btn valor='Cancel' classe='submit-cancel' event={handleCancel} />
+                            <Btn valor='Finish' classe='submit-finish' event={handleFinish} />
                         </div>
                     </form>
                 </div>

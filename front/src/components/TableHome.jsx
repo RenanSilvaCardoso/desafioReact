@@ -41,7 +41,7 @@ export default function TableHome(props){
                         <td>{item.price}</td>
                         <td>{item.amount}</td>
                         <td>{item.total}</td>
-                        <td><button id={item.product_name}onClick={handleDelete}>Delete</button></td>
+                        <td><button id={item.product_name} onClick={handleDelete}>Delete</button></td>
                     </tr>
                 ))}
             </tbody>

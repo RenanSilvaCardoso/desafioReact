@@ -13,5 +13,7 @@ include_once('config.php');
         $tax += $c['tax'];
         $total += $c['total'];
     }
+    error_log($tax);
+    error_log($total);
     $sql = $myPDO->prepare("INSERT INTO orders VALUES (DEFAULT, ?, ?)")->execute([$tax, $total]);
 ?>
